@@ -64,7 +64,7 @@ async function buildStaticSite() {
 
     // Step 5: Render 404 Anomaly Page (dist/404.html)
     console.log('🔨 Compiling 404 Orbital Anomaly page (/404.html)...');
-    const notFoundHtml = renderNotFoundPage({ basePath: '/' });
+    const notFoundHtml = renderNotFoundPage({ basePath: './' });
     fs.writeFileSync(path.join(DIST_DIR, '404.html'), notFoundHtml, 'utf-8');
     pagesRendered++;
 
