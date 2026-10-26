@@ -1,0 +1,24 @@
+{
+  "name": "anti-gravity-portfolios",
+  "version": "1.0.0",
+  "description": "Scalable Jamstack automated freelance portfolio platform with Anti-Gravity UI",
+  "type": "module",
+  "scripts": {
+    "test:auth": "node test-connection.js",
+    "build": "node src/build.js",
+    "dev": "node src/dev-server.js"
+  },
+  "keywords": [
+    "jamstack",
+    "portfolio",
+    "automation",
+    "google-sheets",
+    "github-pages"
+  ],
+  "author": "Anti-Gravity Architecture Team",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "googleapis": "^144.0.0"
+  }
+}
