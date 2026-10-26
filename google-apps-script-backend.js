@@ -1,32 +1,19 @@
 /**
  * =========================================================================
- * GOOGLE APPS SCRIPT: COMPLETE AUTOMATED ONBOARDING BACKEND
+ * GOOGLE APPS SCRIPT: UNIVERSAL CAREER PROFILE & RESUME BACKEND
  * =========================================================================
  * 
  * Functions:
  * 1. Receives form submissions from /join.html
- * 2. Saves uploaded images (Avatar & Project Cover) directly into a Google Drive folder
- * 3. Makes the uploaded images public so they load instantly on the web
- * 4. Appends a new row to your Google Sheet with all freelancer details
- * 5. Automatically triggers GitHub Actions to rebuild & deploy the new portfolio
- * 
- * DEPLOYMENT INSTRUCTIONS (Takes 60 seconds):
- * 1. Open Google Sheets (create a new blank sheet if you haven't yet)
- * 2. In top menu click: Extensions > Apps Script
- * 3. Delete existing code and paste this entire file
- * 4. Fill in GITHUB_REPO ("Sahil-093/portfolios") and GITHUB_PAT (optional for instant auto-build)
- * 5. Click "Deploy" > "New deployment"
- *    - Type: Web app
- *    - Description: AntiGravity Onboarding
- *    - Execute as: "Me"
- *    - Who has access: "Anyone" (crucial!)
- * 6. Click "Deploy", copy the "Web app URL" (ends in /exec)
- * 7. Paste that Web app URL in your /join.html form or send it to me!
+ * 2. Saves uploaded images (Avatar, Project Cover) and RESUME (PDF) directly to Google Drive
+ * 3. Sets public view access on all uploaded assets
+ * 4. Appends a new row to Google Sheet with career details (Department, Job Type, Experience, Salary, Resume Link)
+ * 5. Triggers GitHub Actions to rebuild and deploy the new career profile
  */
 
-var DRIVE_FOLDER_NAME = "Anti-Gravity Portfolio Uploads";
-var GITHUB_REPO = "Sahil-093/portfolios"; // e.g., "Sahil-093/portfolios"
-var GITHUB_PAT = ""; // Optional: GitHub Personal Access Token for instant triggers
+var DRIVE_FOLDER_NAME = "Anti-Gravity Career Uploads";
+var GITHUB_REPO = "Sahil-093/portfolios";
+var GITHUB_PAT = ""; // Optional: Personal Access Token for instant trigger
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -39,35 +26,47 @@ function doPost(e) {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getActiveSheet();
 
-    // Ensure headers exist in Row 1 if sheet is blank
     ensureSheetHeaders(sheet);
 
-    // 1. Save Avatar & Project Images to Google Drive
     var folder = getOrCreateFolder(DRIVE_FOLDER_NAME);
     
+    // 1. Save Avatar Image to Drive
     var avatarUrl = "";
     if (data.avatarBase64 && data.avatarFileName) {
-      avatarUrl = saveBase64ImageToDrive(folder, data.avatarBase64, data.avatarFileName, data.username + "-avatar");
+      avatarUrl = saveBase64FileToDrive(folder, data.avatarBase64, data.avatarFileName, data.username + "-avatar");
     }
 
+    // 2. Save Official Resume PDF to Drive
+    var resumeUrl = "";
+    if (data.resumeBase64 && data.resumeFileName) {
+      resumeUrl = saveBase64FileToDrive(folder, data.resumeBase64, data.resumeFileName, data.username + "-resume");
+    }
+
+    // 3. Save Project Image to Drive
     var projectImgUrl = "";
     if (data.projectImageBase64 && data.projectImageFileName) {
-      projectImgUrl = saveBase64ImageToDrive(folder, data.projectImageBase64, data.projectImageFileName, data.username + "-project");
+      projectImgUrl = saveBase64FileToDrive(folder, data.projectImageBase64, data.projectImageFileName, data.username + "-project");
     }
 
-    // 2. Append row to Google Sheet
+    // 4. Append row to Google Sheet
     var newRow = [
       data.name || "",
       data.username || "",
       data.title || "",
+      data.department || "Engineering & Tech",
+      data.jobType || "Full-Time (Remote)",
+      data.experience || "5+ Years",
+      data.salary || "Competitive",
+      data.location || "",
+      data.company || "",
+      data.education || "",
       data.bio || "",
       avatarUrl || data.avatarUrl || "",
+      resumeUrl || data.resumeUrl || "",
       data.skills || "",
-      data.hourlyRate || "",
-      data.location || "",
-      data.status || "Available for Projects",
-      data.github || "",
+      data.status || "Actively Interviewing",
       data.linkedin || "",
+      data.github || "",
       data.twitter || "",
       data.portfolio || "",
       data.projectTitle || "",
@@ -79,17 +78,17 @@ function doPost(e) {
 
     sheet.appendRow(newRow);
 
-    // 3. Trigger GitHub Actions Rebuild (if token is provided)
+    // 5. Trigger GitHub Actions Rebuild
     if (GITHUB_PAT && GITHUB_REPO) {
       triggerGitHubDispatch(GITHUB_REPO, GITHUB_PAT);
     }
 
     return ContentService.createTextOutput(JSON.stringify({
       success: true,
-      message: "Portfolio submitted successfully! Build initiated.",
+      message: "Career Profile & Resume uploaded successfully!",
       username: data.username,
-      avatarUrl: avatarUrl,
-      projectImgUrl: projectImgUrl
+      resumeUrl: resumeUrl,
+      avatarUrl: avatarUrl
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -106,7 +105,7 @@ function doPost(e) {
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({
     status: "online",
-    service: "Anti-Gravity Onboarding API Engine"
+    service: "Anti-Gravity Universal Career Engine"
   })).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -121,7 +120,7 @@ function getOrCreateFolder(folderName) {
   return newFolder;
 }
 
-function saveBase64ImageToDrive(folder, base64Data, originalFileName, customPrefix) {
+function saveBase64FileToDrive(folder, base64Data, originalFileName, customPrefix) {
   var parts = base64Data.split(",");
   var contentType = parts[0].split(";")[0].replace("data:", "");
   var decoded = Utilities.base64Decode(parts[1]);
@@ -131,16 +130,20 @@ function saveBase64ImageToDrive(folder, base64Data, originalFileName, customPref
   var blob = Utilities.newBlob(decoded, contentType, fileName);
   var file = folder.createFile(blob);
   file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-  
-  // Return direct high-speed CDN view link
-  return "https://lh3.googleusercontent.com/d/" + file.getId();
+
+  if (contentType.indexOf("image") !== -1) {
+    return "https://lh3.googleusercontent.com/d/" + file.getId();
+  }
+  // For PDF / Documents
+  return "https://drive.google.com/file/d/" + file.getId() + "/view?usp=sharing";
 }
 
 function ensureSheetHeaders(sheet) {
   if (sheet.getLastRow() === 0) {
     var headers = [
-      "Name", "Username", "Title", "Bio", "Avatar", "Skills", 
-      "Rate", "Location", "Status", "GitHub", "LinkedIn", "Twitter", 
+      "Name", "Username", "Title", "Department", "Job Type", "Experience", 
+      "Salary", "Location", "Company", "Education", "Bio", "Avatar", 
+      "Resume PDF", "Skills", "Status", "LinkedIn", "GitHub", "Twitter", 
       "Portfolio", "Project 1 Title", "Project 1 Desc", "Project 1 Tags", 
       "Project 1 Link", "Project 1 Image"
     ];

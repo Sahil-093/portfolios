@@ -9,8 +9,8 @@ export function renderJoinPage(options = {}) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join Anti-Gravity | Synthesize Your Weightless Portfolio</title>
-  <meta name="description" content="Onboard to the Anti-Gravity freelance platform. Automated Google Sheets & Drive portfolio synthesis.">
+  <title>Create Your Anti-Gravity Career Profile | Stand Out to Employers</title>
+  <meta name="description" content="Synthesize a 3D weightless career profile and digital resume for Full-Time, Remote & Leadership opportunities.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@ export function renderJoinPage(options = {}) {
     ${sharedStyles}
 
     .form-container {
-      max-width: 820px;
+      max-width: 840px;
       margin: 20px auto 80px;
       padding: 44px;
     }
@@ -36,7 +36,7 @@ export function renderJoinPage(options = {}) {
       margin-bottom: 36px;
     }
     .form-header h1 {
-      font-size: 2.4rem;
+      font-size: 2.3rem;
       margin-bottom: 8px;
     }
     .form-header p {
@@ -44,7 +44,6 @@ export function renderJoinPage(options = {}) {
       font-size: 1rem;
     }
 
-    /* Grid Layouts */
     .form-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -106,12 +105,11 @@ export function renderJoinPage(options = {}) {
       min-height: 95px;
     }
 
-    /* Upload Dropzones */
     .upload-zone {
       position: relative;
       border: 2px dashed rgba(147, 197, 253, 0.25);
       border-radius: 16px;
-      padding: 24px 16px;
+      padding: 22px 16px;
       text-align: center;
       background: rgba(15, 23, 42, 0.4);
       cursor: pointer;
@@ -120,35 +118,19 @@ export function renderJoinPage(options = {}) {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .upload-zone:hover,
-    .upload-zone.dragover {
+    .upload-zone:hover {
       border-color: var(--neon-cyan);
       background: rgba(0, 240, 255, 0.08);
       box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
     }
 
-    .upload-icon {
-      font-size: 1.8rem;
-    }
-    .upload-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #fff;
-    }
-    .upload-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    .file-input-hidden {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-    }
+    .upload-icon { font-size: 1.8rem; }
+    .upload-title { font-size: 0.9rem; font-weight: 600; color: #fff; }
+    .upload-sub { font-size: 0.75rem; color: var(--text-muted); }
+    .file-input-hidden { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
-    /* Image Preview */
     .preview-box {
       margin-top: 10px;
       display: none;
@@ -160,8 +142,8 @@ export function renderJoinPage(options = {}) {
       border: 1px solid var(--border-glass);
     }
     .preview-thumb {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       border-radius: 8px;
       object-fit: cover;
       border: 1px solid var(--neon-cyan);
@@ -175,7 +157,6 @@ export function renderJoinPage(options = {}) {
       flex: 1;
     }
 
-    /* Section divider */
     .form-divider {
       margin: 36px 0 24px;
       padding-bottom: 12px;
@@ -188,7 +169,6 @@ export function renderJoinPage(options = {}) {
       color: #fff;
     }
 
-    /* Submit Button */
     .btn-submit {
       width: 100%;
       padding: 16px;
@@ -199,7 +179,6 @@ export function renderJoinPage(options = {}) {
       cursor: pointer;
     }
 
-    /* Modal */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -212,7 +191,7 @@ export function renderJoinPage(options = {}) {
       padding: 20px;
     }
     .modal-box {
-      max-width: 500px;
+      max-width: 520px;
       width: 100%;
       text-align: center;
       padding: 40px;
@@ -229,10 +208,10 @@ export function renderJoinPage(options = {}) {
     <nav class="nav-bar">
       <a href="${basePath}index.html" class="nav-logo">
         <span class="nav-logo-icon">▲</span>
-        <span>Anti-Gravity Portfolios</span>
+        <span>Anti-Gravity Career Directory</span>
       </a>
       <a href="${basePath}index.html" class="btn-secondary">
-        <span>← Marketplace</span>
+        <span>← All Candidates</span>
       </a>
     </nav>
 
@@ -240,16 +219,16 @@ export function renderJoinPage(options = {}) {
       <header class="form-header">
         <div class="status-badge" style="margin-bottom: 14px;">
           <span class="pulse-dot"></span>
-          <span>Zero-G Talent Synthesis</span>
+          <span>Universal Career Profile Generator</span>
         </div>
-        <h1>Launch Your <span class="gradient-text">Weightless Portfolio</span></h1>
-        <p>Submit your profile and portfolio assets. Our automated pipeline converts your data into a permanent, high-speed static portfolio.</p>
+        <h1>Synthesize Your <span class="gradient-text">Interactive Career Profile</span></h1>
+        <p>Replace static PDF resumes. Submit your background, resume, and accomplishments for automated edge hosting.</p>
       </header>
 
       <form id="onboarding-form">
-        <!-- 1. Identity & Role -->
+        <!-- 01. Professional Identity -->
         <div class="form-divider">
-          <span>01.</span> Identity & Specialization
+          <span>01.</span> Professional Identity & Focus
         </div>
 
         <div class="form-grid-2">
@@ -258,87 +237,146 @@ export function renderJoinPage(options = {}) {
             <input type="text" id="name" required placeholder="e.g. Abdul Latif" />
           </div>
           <div class="form-group">
-            <label for="username">Routing Slug / Username * <span class="hint" id="slug-hint">/professionals/...</span></label>
+            <label for="username">Profile URL Slug * <span class="hint" id="slug-hint">/professionals/...</span></label>
             <input type="text" id="username" required placeholder="abdul-latif" />
           </div>
         </div>
 
         <div class="form-grid-2">
           <div class="form-group">
-            <label for="title">Headline / Role *</label>
-            <input type="text" id="title" required placeholder="e.g. Senior Fullstack Engineer & Cloud Architect" />
+            <label for="department">Discipline / Industry *</label>
+            <select id="department" required>
+              <option value="Engineering & Technology">💻 Engineering & Technology</option>
+              <option value="Design & Creative">🎨 Design & Creative</option>
+              <option value="Marketing & Growth">📈 Marketing & Growth</option>
+              <option value="Finance & Operations">💼 Finance & Operations</option>
+              <option value="Product & Management">🚀 Product & Management</option>
+              <option value="Healthcare & Science">🧬 Healthcare & Science</option>
+              <option value="Education & Consulting">📚 Education & Consulting</option>
+              <option value="Other Specialist">✨ Other Specialized Field</option>
+            </select>
           </div>
           <div class="form-group">
-            <label for="hourlyRate">Hourly Rate *</label>
-            <input type="text" id="hourlyRate" required placeholder="e.g. $85/hr" />
+            <label for="title">Current Position / Professional Title *</label>
+            <input type="text" id="title" required placeholder="e.g. Senior Software Architect / Marketing Director" />
           </div>
+        </div>
+
+        <!-- 02. Career & Employment Preferences -->
+        <div class="form-divider">
+          <span>02.</span> Employment Preferences & Target Opportunities
         </div>
 
         <div class="form-grid-2">
           <div class="form-group">
-            <label for="location">Location / Timezone *</label>
-            <input type="text" id="location" required placeholder="e.g. Islamabad, Pakistan / Remote" />
+            <label for="jobType">Work Preference *</label>
+            <select id="jobType">
+              <option value="Full-Time (Remote)">🌍 Full-Time (Remote Preferred)</option>
+              <option value="Full-Time (Hybrid / On-site)">🏢 Full-Time (Hybrid / On-site)</option>
+              <option value="Contract & Leadership">⚡ Contract & Leadership Advisory</option>
+              <option value="Open to All Opportunities">✨ Open to All Opportunities</option>
+            </select>
           </div>
           <div class="form-group">
-            <label for="status">Current Status</label>
-            <select id="status">
-              <option value="Available for Projects">🟢 Available for Projects</option>
-              <option value="Partially Booked">🟡 Partially Booked</option>
-              <option value="Available in Q2">🔵 Available in Q2</option>
-              <option value="Consulting Only">🟣 Consulting Only</option>
+            <label for="experience">Years of Experience *</label>
+            <select id="experience">
+              <option value="1-3 Years Experience">🌱 1 - 3 Years (Early Career)</option>
+              <option value="3-5 Years Experience">🚀 3 - 5 Years (Mid-Level)</option>
+              <option value="5-8 Years Experience" selected>⭐ 5 - 8 Years (Senior)</option>
+              <option value="8-12 Years Experience">🏆 8 - 12 Years (Staff / Principal)</option>
+              <option value="12+ Years Leadership">👑 12+ Years (Director / Executive)</option>
             </select>
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="bio">Professional Bio *</label>
-          <textarea id="bio" required placeholder="Describe your creative philosophy, technical superpowers, and the kind of impact you deliver..."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="skills">Skills & Disciplines * <span class="hint">Comma separated</span></label>
-          <input type="text" id="skills" required placeholder="e.g. Three.js, React, Node.js, WebGL, TailwindCSS" />
-        </div>
-
-        <!-- 2. Profile Photo Upload -->
-        <div class="form-divider">
-          <span>02.</span> Visual Asset (Google Drive Auto-Save)
-        </div>
-
-        <div class="form-group">
-          <label>Profile Headshot * <span class="hint">Auto-saved to Google Drive</span></label>
-          <div class="upload-zone" id="avatar-zone">
-            <div class="upload-icon">📸</div>
-            <div class="upload-title">Click or Drag & Drop Headshot Image</div>
-            <div class="upload-sub">PNG, JPG, or WEBP (Under 5MB)</div>
-            <input type="file" id="avatar-input" class="file-input-hidden" accept="image/*" required />
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="salary">Target Compensation / Salary Expectation</label>
+            <input type="text" id="salary" placeholder="e.g. $90k - $110k/yr or Open / Negotiable" />
           </div>
-          <div class="preview-box" id="avatar-preview">
-            <img id="avatar-img-prev" class="preview-thumb" alt="Avatar preview" />
-            <span class="preview-info" id="avatar-file-name"></span>
-            <span style="color: var(--neon-emerald); font-size: 0.8rem;">✓ Loaded</span>
+          <div class="form-group">
+            <label for="location">Location / Residence *</label>
+            <input type="text" id="location" required placeholder="e.g. Islamabad, Pakistan / Global Remote" />
           </div>
-        </div>
-
-        <!-- 3. Social Footprint -->
-        <div class="form-divider">
-          <span>03.</span> Social & Transmission Channels
         </div>
 
         <div class="form-grid-2">
           <div class="form-group">
-            <label for="github">GitHub Profile URL</label>
-            <input type="url" id="github" placeholder="https://github.com/username" />
+            <label for="company">Current / Last Organization</label>
+            <input type="text" id="company" placeholder="e.g. Horizon Labs / Ex-Google" />
           </div>
+          <div class="form-group">
+            <label for="education">Highest Degree / Alma Mater</label>
+            <input type="text" id="education" placeholder="e.g. BS Computer Science / MBA" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bio">Professional Summary *</label>
+          <textarea id="bio" required placeholder="Briefly describe your career journey, core technical or strategic achievements, and what you bring to a prospective team..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="skills">Key Competencies & Technologies * <span class="hint">Comma separated</span></label>
+          <input type="text" id="skills" required placeholder="e.g. Python, Cloud Architecture, Team Leadership, CI/CD, React" />
+        </div>
+
+        <!-- 03. Assets & Resume (Google Drive Upload) -->
+        <div class="form-divider">
+          <span>03.</span> Headshot & Official Resume (PDF)
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Professional Headshot * <span class="hint">Auto-saved to Drive</span></label>
+            <div class="upload-zone" id="avatar-zone">
+              <div class="upload-icon">📸</div>
+              <div class="upload-title">Upload Photo</div>
+              <div class="upload-sub">PNG, JPG, or WEBP</div>
+              <input type="file" id="avatar-input" class="file-input-hidden" accept="image/*" required />
+            </div>
+            <div class="preview-box" id="avatar-preview">
+              <img id="avatar-img-prev" class="preview-thumb" alt="Avatar preview" />
+              <span class="preview-info" id="avatar-file-name"></span>
+              <span style="color: var(--neon-emerald); font-size: 0.8rem;">✓ Loaded</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Official Resume (PDF) <span class="hint">Auto-saved to Drive</span></label>
+            <div class="upload-zone" id="resume-zone">
+              <div class="upload-icon">📄</div>
+              <div class="upload-title">Upload Resume / CV (PDF)</div>
+              <div class="upload-sub">PDF (Under 10MB)</div>
+              <input type="file" id="resume-input" class="file-input-hidden" accept="application/pdf" />
+            </div>
+            <div class="preview-box" id="resume-preview">
+              <span style="font-size: 1.5rem;">📑</span>
+              <span class="preview-info" id="resume-file-name"></span>
+              <span style="color: var(--neon-emerald); font-size: 0.8rem;">✓ PDF Loaded</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04. Social & Verification Links -->
+        <div class="form-divider">
+          <span>04.</span> Professional Links & Profiles
+        </div>
+
+        <div class="form-grid-2">
           <div class="form-group">
             <label for="linkedin">LinkedIn Profile URL</label>
             <input type="url" id="linkedin" placeholder="https://linkedin.com/in/username" />
           </div>
+          <div class="form-group">
+            <label for="github">GitHub / Work Repositories</label>
+            <input type="url" id="github" placeholder="https://github.com/username" />
+          </div>
         </div>
 
         <div class="form-grid-2">
           <div class="form-group">
-            <label for="twitter">Twitter / X URL</label>
+            <label for="twitter">Twitter / X Profile</label>
             <input type="url" id="twitter" placeholder="https://x.com/username" />
           </div>
           <div class="form-group">
@@ -347,38 +385,38 @@ export function renderJoinPage(options = {}) {
           </div>
         </div>
 
-        <!-- 4. Featured Portfolio Work -->
+        <!-- 05. Key Career Initiative / Project -->
         <div class="form-divider">
-          <span>04.</span> Featured Gravitational Project
+          <span>05.</span> Highlighted Career Initiative / Case Study
         </div>
 
         <div class="form-grid-2">
           <div class="form-group">
-            <label for="projectTitle">Project Title *</label>
-            <input type="text" id="projectTitle" required placeholder="e.g. Zero-G Spatial Audio Engine" />
+            <label for="projectTitle">Project / Initiative Title *</label>
+            <input type="text" id="projectTitle" required placeholder="e.g. Distributed Core Banking Modernization" />
           </div>
           <div class="form-group">
-            <label for="projectLink">Project Live / Case Study URL</label>
-            <input type="url" id="projectLink" placeholder="https://github.com/... or live demo" />
+            <label for="projectLink">Live Link / Proof / Repository</label>
+            <input type="url" id="projectLink" placeholder="https://example.com" />
           </div>
         </div>
 
         <div class="form-group">
-          <label for="projectTags">Project Tags</label>
-          <input type="text" id="projectTags" placeholder="e.g. WebGL, WebAudio, Canvas, Three.js" />
+          <label for="projectTags">Key Tags / Methodologies</label>
+          <input type="text" id="projectTags" placeholder="e.g. Cloud Migration, Microservices, Security, Cost Reduction" />
         </div>
 
         <div class="form-group">
-          <label for="projectDesc">Project Description *</label>
-          <textarea id="projectDesc" required placeholder="Explain the challenge, the architectural stack, and the interactive results..."></textarea>
+          <label for="projectDesc">Project Impact & Summary *</label>
+          <textarea id="projectDesc" required placeholder="Describe what you built or led, and the measurable results delivered..."></textarea>
         </div>
 
         <div class="form-group">
-          <label>Project Cover Image <span class="hint">Auto-saved to Google Drive</span></label>
+          <label>Initiative Screenshot / Visual</label>
           <div class="upload-zone" id="project-zone">
             <div class="upload-icon">🖼️</div>
-            <div class="upload-title">Click or Drag & Drop Project Screenshot</div>
-            <div class="upload-sub">PNG, JPG, or WEBP (Under 5MB)</div>
+            <div class="upload-title">Upload Project Media (Optional)</div>
+            <div class="upload-sub">PNG, JPG, or WEBP</div>
             <input type="file" id="project-input" class="file-input-hidden" accept="image/*" />
           </div>
           <div class="preview-box" id="project-preview">
@@ -388,9 +426,8 @@ export function renderJoinPage(options = {}) {
           </div>
         </div>
 
-        <!-- Submit Button -->
         <button type="submit" id="submit-btn" class="btn-gravity btn-submit">
-          <span>🚀 Synthesize & Deploy Portfolio</span>
+          <span>🚀 Synthesize & Launch Career Profile</span>
         </button>
       </form>
     </div>
@@ -403,16 +440,16 @@ export function renderJoinPage(options = {}) {
         <span class="pulse-dot"></span>
         <span>Transmission Successful</span>
       </div>
-      <h2 style="font-size: 1.8rem; margin-bottom: 12px;">Welcome to Orbit! 🌌</h2>
+      <h2 style="font-size: 1.8rem; margin-bottom: 12px;">Career Profile Live! 🚀</h2>
       <p style="color: var(--text-muted); margin-bottom: 24px;" id="modal-msg">
-        Your portfolio data and media assets have been saved directly to Google Sheets and Google Drive.
+        Your professional data, resume PDF, and media assets have been saved directly to Google Sheets and Google Drive.
       </p>
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <a id="view-portfolio-btn" href="#" class="btn-gravity">
-          <span>View Your Portfolio →</span>
+          <span>View Career Profile →</span>
         </a>
         <a href="${basePath}index.html" class="btn-secondary">
-          <span>← Back to Marketplace</span>
+          <span>← Back to Directory</span>
         </a>
       </div>
     </div>
@@ -421,7 +458,6 @@ export function renderJoinPage(options = {}) {
   <script>
     ${clientScripts}
 
-    // Auto slug generator from Full Name
     const nameInput = document.getElementById('name');
     const usernameInput = document.getElementById('username');
     const slugHint = document.getElementById('slug-hint');
@@ -440,7 +476,6 @@ export function renderJoinPage(options = {}) {
       slugHint.textContent = '/professionals/' + e.target.value + '/';
     });
 
-    // File to Base64 Reader Helper
     function handleFile(inputElem, previewBox, imgPrev, nameElem, callback) {
       inputElem.addEventListener('change', (e) => {
         const file = e.target.files[0];
@@ -448,8 +483,8 @@ export function renderJoinPage(options = {}) {
 
         const reader = new FileReader();
         reader.onload = (event) => {
-          imgPrev.src = event.target.result;
-          nameElem.textContent = file.name;
+          if (imgPrev) imgPrev.src = event.target.result;
+          if (nameElem) nameElem.textContent = file.name;
           previewBox.style.display = 'flex';
           callback(event.target.result, file.name);
         };
@@ -458,6 +493,7 @@ export function renderJoinPage(options = {}) {
     }
 
     let avatarData = { base64: null, name: null };
+    let resumeData = { base64: null, name: null };
     let projectImageData = { base64: null, name: null };
 
     handleFile(
@@ -469,6 +505,14 @@ export function renderJoinPage(options = {}) {
     );
 
     handleFile(
+      document.getElementById('resume-input'),
+      document.getElementById('resume-preview'),
+      null,
+      document.getElementById('resume-file-name'),
+      (b64, name) => { resumeData = { base64: b64, name: name }; }
+    );
+
+    handleFile(
       document.getElementById('project-input'),
       document.getElementById('project-preview'),
       document.getElementById('project-img-prev'),
@@ -476,28 +520,30 @@ export function renderJoinPage(options = {}) {
       (b64, name) => { projectImageData = { base64: b64, name: name }; }
     );
 
-    // Form Submission Handler
     const form = document.getElementById('onboarding-form');
     const submitBtn = document.getElementById('submit-btn');
     const modal = document.getElementById('success-modal');
     const viewBtn = document.getElementById('view-portfolio-btn');
 
-    // Google Apps Script Web App Endpoint URL (Can also be set in localStorage)
     const APPS_SCRIPT_URL = window.GOOGLE_APPS_SCRIPT_URL || localStorage.getItem('ANTIGRAVITY_WEBHOOK_URL') || '';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>⚡ Synthesizing & Transmitting Assets...</span>';
+      submitBtn.innerHTML = '<span>⚡ Transmitting Career Assets to Google Drive...</span>';
 
       const payload = {
         name: document.getElementById('name').value.trim(),
         username: document.getElementById('username').value.trim(),
+        department: document.getElementById('department').value,
         title: document.getElementById('title').value.trim(),
-        hourlyRate: document.getElementById('hourlyRate').value.trim(),
+        jobType: document.getElementById('jobType').value,
+        experience: document.getElementById('experience').value,
+        salary: document.getElementById('salary').value.trim() || 'Open / Negotiable',
         location: document.getElementById('location').value.trim(),
-        status: document.getElementById('status').value,
+        company: document.getElementById('company').value.trim(),
+        education: document.getElementById('education').value.trim(),
         bio: document.getElementById('bio').value.trim(),
         skills: document.getElementById('skills').value.trim(),
         github: document.getElementById('github').value.trim(),
@@ -506,6 +552,8 @@ export function renderJoinPage(options = {}) {
         portfolio: document.getElementById('portfolio').value.trim(),
         avatarBase64: avatarData.base64,
         avatarFileName: avatarData.name,
+        resumeBase64: resumeData.base64,
+        resumeFileName: resumeData.name,
         projectTitle: document.getElementById('projectTitle').value.trim(),
         projectLink: document.getElementById('projectLink').value.trim(),
         projectTags: document.getElementById('projectTags').value.trim(),
@@ -524,17 +572,15 @@ export function renderJoinPage(options = {}) {
           });
         }
 
-        // Show Success Modal
         viewBtn.href = '${basePath}professionals/' + payload.username + '/index.html';
         modal.style.display = 'flex';
 
       } catch (err) {
-        console.warn('Submission fallback notice:', err);
         viewBtn.href = '${basePath}professionals/' + payload.username + '/index.html';
         modal.style.display = 'flex';
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>🚀 Synthesize & Deploy Portfolio</span>';
+        submitBtn.innerHTML = '<span>🚀 Synthesize & Launch Career Profile</span>';
       }
     });
   </script>

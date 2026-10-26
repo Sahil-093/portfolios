@@ -2,10 +2,7 @@ import { sharedStyles } from './components/styles.js';
 import { clientScripts } from './components/clientScripts.js';
 
 /**
- * Renders the main Anti-Gravity marketplace / showcase directory page (index.html).
- * @param {Array<Object>} professionals - Normalized professional records
- * @param {Object} options - Metadata options
- * @returns {string} Fully valid HTML document string
+ * Renders the Universal Career Directory Showcase (index.html).
  */
 export function renderDirectoryPage(professionals = [], options = {}) {
   const cardsHtml = professionals.map((p, idx) => {
@@ -13,7 +10,9 @@ export function renderDirectoryPage(professionals = [], options = {}) {
     const skillsList = p.skills.slice(0, 4);
 
     return `
-      <div class="glass-card tilt-card professional-card ${floatClass}" data-search="${(p.name + ' ' + p.title + ' ' + p.skills.join(' ')).toLowerCase()}">
+      <div class="glass-card tilt-card professional-card ${floatClass}" 
+           data-search="${(p.name + ' ' + p.title + ' ' + p.department + ' ' + p.jobType + ' ' + p.skills.join(' ')).toLowerCase()}"
+           data-department="${(p.department || '').toLowerCase()}">
         <div class="card-top">
           <div class="card-avatar-wrap">
             <div class="card-avatar-glow"></div>
@@ -24,14 +23,21 @@ export function renderDirectoryPage(professionals = [], options = {}) {
               <span class="pulse-dot"></span>
               <span>${p.status}</span>
             </span>
-            <span class="rate-badge">${p.hourlyRate}</span>
+            <span class="rate-badge">${p.salary}</span>
           </div>
         </div>
 
         <div class="card-body">
+          <div class="dept-tag">${p.department}</div>
           <h3 class="prof-name">${p.name}</h3>
           <p class="prof-title">${p.title}</p>
-          <p class="prof-bio">${p.bio.length > 110 ? p.bio.substring(0, 110) + '...' : p.bio}</p>
+          
+          <div class="meta-strip">
+            <span>💼 ${p.jobType}</span>
+            <span>⏱️ ${p.experience}</span>
+          </div>
+
+          <p class="prof-bio">${p.bio.length > 115 ? p.bio.substring(0, 115) + '...' : p.bio}</p>
 
           <div class="skills-row">
             ${skillsList.map(s => `<span class="tag-pill">${s}</span>`).join('')}
@@ -42,7 +48,7 @@ export function renderDirectoryPage(professionals = [], options = {}) {
         <div class="card-footer">
           <span class="loc-text">📍 ${p.location}</span>
           <a href="./professionals/${p.username}/index.html" class="btn-gravity btn-card">
-            <span>View Portfolio</span>
+            <span>View Career Profile</span>
             <span>→</span>
           </a>
         </div>
@@ -55,8 +61,8 @@ export function renderDirectoryPage(professionals = [], options = {}) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anti-Gravity Portfolio Platform | Elite Freelance Network</title>
-  <meta name="description" content="A weightless, ultra-fast Jamstack freelance platform showcasing top independent talent.">
+  <title>Anti-Gravity Career Directory | Elite Candidates & Interactive Resumes</title>
+  <meta name="description" content="Discover top candidates defying ordinary resumes. Dedicated career profiles for Full-Time, Remote & Leadership roles.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,11 +72,10 @@ export function renderDirectoryPage(professionals = [], options = {}) {
   <style>
     ${sharedStyles}
 
-    /* Marketplace Header */
     .market-hero {
       text-align: center;
-      padding: 60px 0 40px;
-      max-width: 800px;
+      padding: 50px 0 32px;
+      max-width: 860px;
       margin: 0 auto;
     }
     .hero-badge {
@@ -86,12 +91,12 @@ export function renderDirectoryPage(professionals = [], options = {}) {
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .market-hero h1 {
       font-size: 3.2rem;
       line-height: 1.15;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     @media (max-width: 768px) {
       .market-hero h1 {
@@ -104,11 +109,13 @@ export function renderDirectoryPage(professionals = [], options = {}) {
       line-height: 1.6;
     }
 
-    /* Search & Stats Bar */
-    .search-section {
-      max-width: 650px;
-      margin: 0 auto 50px;
-      position: relative;
+    /* Recruiter Filter & Search Hub */
+    .filter-hub {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
     .search-input {
       width: 100%;
@@ -131,7 +138,32 @@ export function renderDirectoryPage(professionals = [], options = {}) {
       color: var(--text-subtle);
     }
 
-    /* Professionals Grid */
+    .dept-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .filter-chip {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .filter-chip:hover,
+    .filter-chip.active {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--neon-cyan);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+    }
+
+    /* Candidate Cards */
     .professionals-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -144,7 +176,7 @@ export function renderDirectoryPage(professionals = [], options = {}) {
     }
 
     .professional-card {
-      padding: 28px;
+      padding: 26px;
       display: flex;
       flex-direction: column;
       border-radius: 20px;
@@ -153,7 +185,7 @@ export function renderDirectoryPage(professionals = [], options = {}) {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     .card-avatar-wrap {
       position: relative;
@@ -184,30 +216,51 @@ export function renderDirectoryPage(professionals = [], options = {}) {
       gap: 8px;
     }
     .rate-badge {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--neon-cyan);
     }
 
-    .card-body {
-      flex: 1;
-      margin-bottom: 24px;
-    }
-    .prof-name {
-      font-size: 1.4rem;
+    .dept-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #c084fc;
       margin-bottom: 4px;
     }
+
+    .card-body {
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .prof-name {
+      font-size: 1.35rem;
+      margin-bottom: 3px;
+    }
     .prof-title {
-      color: #c084fc;
-      font-size: 0.9rem;
+      color: #e2e8f0;
+      font-size: 0.88rem;
       font-weight: 500;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+    }
+    .meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
     .prof-bio {
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       line-height: 1.5;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .skills-row {
       display: flex;
@@ -219,7 +272,7 @@ export function renderDirectoryPage(professionals = [], options = {}) {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 18px;
+      padding-top: 16px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
     .loc-text {
@@ -227,7 +280,7 @@ export function renderDirectoryPage(professionals = [], options = {}) {
       font-size: 0.85rem;
     }
     .btn-card {
-      padding: 8px 18px;
+      padding: 8px 16px;
       font-size: 0.85rem;
       border-radius: 10px;
     }
@@ -257,10 +310,7 @@ export function renderDirectoryPage(professionals = [], options = {}) {
   </style>
 </head>
 <body>
-  <!-- Space Background Canvas -->
   <canvas id="space-canvas"></canvas>
-
-  <!-- Ambient Light Orbs -->
   <div class="cosmic-orb orb-1"></div>
   <div class="cosmic-orb orb-2"></div>
 
@@ -269,29 +319,37 @@ export function renderDirectoryPage(professionals = [], options = {}) {
     <nav class="nav-bar">
       <a href="./index.html" class="nav-logo">
         <span class="nav-logo-icon">▲</span>
-        <span>Anti-Gravity Portfolios</span>
+        <span>Anti-Gravity Career Directory</span>
       </a>
       <div style="display: flex; align-items: center; gap: 14px;">
         <div class="status-badge" style="display: none; @media(min-width: 640px){ display: inline-flex; }">
           <span class="pulse-dot"></span>
-          <span>Auto-Sync Online</span>
+          <span>Recruiter Engine Live</span>
         </div>
         <a href="./join.html" class="btn-gravity" style="padding: 9px 18px; font-size: 0.88rem;">
-          <span>⚡ Join Platform</span>
+          <span>⚡ Create Career Profile</span>
         </a>
       </div>
     </nav>
 
     <!-- Marketplace Hero -->
     <header class="market-hero">
-      <div class="hero-badge">Zero-G Jamstack Architecture</div>
-      <h1>Defy Ordinary Portfolios. <br/><span class="gradient-text">Hire Weightless Talent.</span></h1>
-      <p>A headless, Google-powered directory of top freelance engineers, architects, and creative technologists.</p>
+      <div class="hero-badge">Next-Gen Professional Profiles</div>
+      <h1>Replace Boring Resumes. <br/><span class="gradient-text">Discover Verified Talent.</span></h1>
+      <p>A headless, automated directory of elite engineers, designers, executives, and specialists seeking Full-Time, Remote & Leadership roles.</p>
     </header>
 
-    <!-- Instant Search Bar -->
-    <div class="search-section">
-      <input type="text" id="live-search" class="search-input" placeholder="🔍 Filter by discipline, name, or skill (e.g., Three.js, Cloud, Design)..." />
+    <!-- Recruiter Filter & Search Hub -->
+    <div class="filter-hub">
+      <input type="text" id="live-search" class="search-input" placeholder="🔍 Search by skill, title, role, or company (e.g., Fullstack, Cloud, Python, Design Lead)..." />
+      
+      <div class="dept-filters">
+        <button class="filter-chip active" data-dept="all">All Disciplines</button>
+        <button class="filter-chip" data-dept="engineering">Engineering & Tech</button>
+        <button class="filter-chip" data-dept="design">Design & Creative</button>
+        <button class="filter-chip" data-dept="marketing">Marketing & Growth</button>
+        <button class="filter-chip" data-dept="finance">Finance & Ops</button>
+      </div>
     </div>
 
     <!-- Professionals Grid -->
@@ -303,48 +361,68 @@ export function renderDirectoryPage(professionals = [], options = {}) {
     <div class="glass-card stats-bar">
       <div class="stat-item">
         <div class="stat-number">${professionals.length}</div>
-        <div class="stat-label">Active Specialists</div>
+        <div class="stat-label">Verified Profiles</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">100%</div>
-        <div class="stat-label">Static Edge Delivery</div>
+        <div class="stat-label">Direct Candidate Contact</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">&lt; 50ms</div>
-        <div class="stat-label">Average Load Speed</div>
+        <div class="stat-number">&lt; 40ms</div>
+        <div class="stat-label">Edge Load Speed</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">$0/mo</div>
-        <div class="stat-label">Hosting Overhead</div>
+        <div class="stat-label">Platform Maintenance</div>
       </div>
     </div>
 
     <!-- Footer -->
     <footer>
-      <p>Anti-Gravity Portfolio Platform · Automated via GitHub Actions & Google Sheets · Powered by Jamstack</p>
+      <p>Anti-Gravity Career Profile Platform · Automated via GitHub Actions & Google Sheets · Jamstack Architecture</p>
     </footer>
   </div>
 
   <script>
     ${clientScripts}
 
-    // Instant Client-side Search Filtering
+    // Instant Filter & Search Engine
     const searchInput = document.getElementById('live-search');
     const cards = document.querySelectorAll('.professional-card');
+    const filterChips = document.querySelectorAll('.filter-chip');
 
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        cards.forEach((card) => {
-          const searchData = card.getAttribute('data-search') || '';
-          if (!query || searchData.includes(query)) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+    let currentDept = 'all';
+
+    function applyFilters() {
+      const query = (searchInput?.value || '').toLowerCase().trim();
+
+      cards.forEach((card) => {
+        const searchData = card.getAttribute('data-search') || '';
+        const cardDept = card.getAttribute('data-department') || '';
+
+        const matchesQuery = !query || searchData.includes(query);
+        const matchesDept = currentDept === 'all' || cardDept.includes(currentDept);
+
+        if (matchesQuery && matchesDept) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
       });
     }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applyFilters);
+    }
+
+    filterChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentDept = chip.getAttribute('data-dept');
+        applyFilters();
+      });
+    });
   </script>
 </body>
 </html>`;

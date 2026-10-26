@@ -2,10 +2,7 @@ import { sharedStyles } from './components/styles.js';
 import { clientScripts } from './components/clientScripts.js';
 
 /**
- * Renders an Anti-Gravity themed standalone portfolio page for a single professional.
- * @param {Object} professional - Normalized professional record
- * @param {Object} options - Base path and metadata
- * @returns {string} Fully valid HTML document string
+ * Renders a Universal Career & Job Profile page for a professional.
  */
 export function renderProfessionalPage(professional, options = {}) {
   const basePath = options.basePath || '../../';
@@ -13,11 +10,16 @@ export function renderProfessionalPage(professional, options = {}) {
     name,
     username,
     title,
+    department,
+    jobType,
+    experience,
+    salary,
+    currentCompany,
+    education,
     bio,
     avatarUrl,
-    coverUrl,
+    resumeUrl,
     skills = [],
-    hourlyRate,
     location,
     status,
     socials = {},
@@ -25,9 +27,9 @@ export function renderProfessionalPage(professional, options = {}) {
   } = professional;
 
   const socialIcons = [
+    { key: 'linkedin', label: 'LinkedIn', icon: '💼' },
     { key: 'github', label: 'GitHub', icon: '⚡' },
     { key: 'twitter', label: 'Twitter', icon: '𝕏' },
-    { key: 'linkedin', label: 'LinkedIn', icon: '💼' },
     { key: 'portfolio', label: 'Website', icon: '🌐' }
   ].filter(s => socials[s.key] && socials[s.key].trim() !== '');
 
@@ -50,7 +52,7 @@ export function renderProfessionalPage(professional, options = {}) {
             <p class="project-desc">${p.description}</p>
             <div class="project-footer">
               <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="btn-gravity btn-mini">
-                <span>Explore Project</span>
+                <span>View Initiative / Proof</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <path d="M7 17L17 7M17 7H7M17 7V17"/>
                 </svg>
@@ -59,15 +61,15 @@ export function renderProfessionalPage(professional, options = {}) {
           </div>
         </div>
       `).join('\n')
-    : `<div class="empty-projects glass-card"><p>New exploratory zero-gravity projects in progress.</p></div>`;
+    : `<div class="empty-projects glass-card"><p>Verified career case studies being compiled.</p></div>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${name} | Anti-Gravity Portfolio</title>
-  <meta name="description" content="${bio}">
+  <title>${name} | Career Profile & Digital Resume</title>
+  <meta name="description" content="${title} · ${department} · ${experience} · ${bio}">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,14 +79,13 @@ export function renderProfessionalPage(professional, options = {}) {
   <style>
     ${sharedStyles}
 
-    /* Professional Profile Header Specifics */
     .hero-banner {
       position: relative;
       border-radius: 24px;
-      padding: 48px 36px;
+      padding: 44px 36px;
       margin-top: 16px;
-      margin-bottom: 40px;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(6, 8, 20, 0.95) 100%);
+      margin-bottom: 36px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(6, 8, 20, 0.98) 100%);
       border: 1px solid var(--border-glass);
       display: grid;
       grid-template-columns: auto 1fr auto;
@@ -92,7 +93,7 @@ export function renderProfessionalPage(professional, options = {}) {
       align-items: center;
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 900px) {
       .hero-banner {
         grid-template-columns: 1fr;
         text-align: center;
@@ -127,7 +128,7 @@ export function renderProfessionalPage(professional, options = {}) {
 
     .hero-info h1 {
       font-size: 2.2rem;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .hero-info .role-title {
       font-size: 1.15rem;
@@ -135,31 +136,67 @@ export function renderProfessionalPage(professional, options = {}) {
       font-weight: 500;
       margin-bottom: 12px;
     }
-    .hero-info .meta-row {
+
+    /* Career Attributes Strip */
+    .career-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 10px;
       align-items: center;
       margin-bottom: 16px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
     }
-    @media (max-width: 860px) {
-      .hero-info .meta-row {
+    @media (max-width: 900px) {
+      .career-strip {
         justify-content: center;
       }
+    }
+
+    .badge-career {
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: #e2e8f0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-highlight {
+      border-color: rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--neon-cyan);
     }
 
     .hero-actions {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      min-width: 200px;
+    }
+    @media (max-width: 900px) {
+      .hero-actions {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
+    .btn-resume {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(236, 72, 153, 0.8));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+    }
+    .btn-resume:hover {
+      box-shadow: 0 6px 25px rgba(236, 72, 153, 0.5);
+      transform: translateY(-2px);
     }
 
     /* Section Headers */
     .section-title {
-      font-size: 1.5rem;
-      margin-bottom: 24px;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -176,7 +213,7 @@ export function renderProfessionalPage(professional, options = {}) {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 48px;
+      margin-bottom: 44px;
     }
 
     /* Projects Grid */
@@ -255,7 +292,7 @@ export function renderProfessionalPage(professional, options = {}) {
       gap: 12px;
       margin-top: 16px;
     }
-    @media (max-width: 860px) {
+    @media (max-width: 900px) {
       .social-dock {
         justify-content: center;
       }
@@ -282,10 +319,7 @@ export function renderProfessionalPage(professional, options = {}) {
   </style>
 </head>
 <body>
-  <!-- Space Background Canvas -->
   <canvas id="space-canvas"></canvas>
-
-  <!-- Ambient Light Orbs -->
   <div class="cosmic-orb orb-1"></div>
   <div class="cosmic-orb orb-2"></div>
   <div class="cosmic-orb orb-3"></div>
@@ -295,19 +329,19 @@ export function renderProfessionalPage(professional, options = {}) {
     <nav class="nav-bar">
       <a href="${basePath}index.html" class="nav-logo">
         <span class="nav-logo-icon">▲</span>
-        <span>Anti-Gravity Portfolios</span>
+        <span>Anti-Gravity Career Directory</span>
       </a>
       <div style="display: flex; align-items: center; gap: 10px;">
         <a href="${basePath}index.html" class="btn-secondary">
-          <span>← All Specialists</span>
+          <span>← All Candidates</span>
         </a>
         <a href="${basePath}join.html" class="btn-gravity" style="padding: 9px 16px; font-size: 0.88rem;">
-          <span>⚡ Join</span>
+          <span>⚡ Create Your Profile</span>
         </a>
       </div>
     </nav>
 
-    <!-- Hero Banner Profile -->
+    <!-- Career Profile Hero Banner -->
     <header class="hero-banner tilt-card float-1">
       <div class="avatar-wrapper">
         <div class="avatar-halo"></div>
@@ -315,20 +349,26 @@ export function renderProfessionalPage(professional, options = {}) {
       </div>
 
       <div class="hero-info">
-        <div class="status-badge" style="margin-bottom: 12px;">
+        <div class="status-badge" style="margin-bottom: 10px;">
           <span class="pulse-dot"></span>
           <span>${status}</span>
         </div>
         <h1>${name}</h1>
         <p class="role-title">${title}</p>
-        <div class="meta-row">
-          <span>📍 ${location}</span>
-          <span>💰 ${hourlyRate}</span>
-          <span>⚡ @${username}</span>
+
+        <!-- Career Attributes Strip -->
+        <div class="career-strip">
+          <span class="badge-career badge-highlight">💼 ${jobType}</span>
+          <span class="badge-career">⏱️ ${experience}</span>
+          <span class="badge-career">💰 ${salary}</span>
+          <span class="badge-career">📍 ${location}</span>
+          ${currentCompany ? `<span class="badge-career">🏢 ${currentCompany}</span>` : ''}
+          ${education ? `<span class="badge-career">🎓 ${education}</span>` : ''}
         </div>
+
         <p style="color: var(--text-muted); max-width: 650px;">${bio}</p>
 
-        <!-- Social Links -->
+        <!-- Social & Verification Channels -->
         <div class="social-dock">
           ${socialIcons.map(s => `
             <a href="${socials[s.key]}" target="_blank" rel="noopener noreferrer" class="social-link" title="${s.label}">
@@ -338,25 +378,31 @@ export function renderProfessionalPage(professional, options = {}) {
         </div>
       </div>
 
+      <!-- Recruiter Actions -->
       <div class="hero-actions">
-        <a href="mailto:contact@${username}.com" class="btn-gravity">
-          <span>Hire Specialist</span>
+        <a href="mailto:contact@${username}.com?subject=Job%20Opportunity%20via%20Anti-Gravity%20Platform" class="btn-gravity">
+          <span>💼 Schedule Interview</span>
           <span>→</span>
         </a>
+        ${resumeUrl ? `
+          <a href="${resumeUrl}" target="_blank" rel="noopener noreferrer" class="btn-gravity btn-resume">
+            <span>📄 Download Resume (PDF)</span>
+          </a>
+        ` : ''}
       </div>
     </header>
 
-    <!-- Core Skills -->
+    <!-- Core Competencies & Skills -->
     <section>
-      <h2 class="section-title">Core Disciplines & Technologies</h2>
+      <h2 class="section-title">Core Competencies & Stack</h2>
       <div class="skills-wrapper">
         ${skillsHtml}
       </div>
     </section>
 
-    <!-- Selected Works -->
+    <!-- Career Initiatives & Case Studies -->
     <section>
-      <h2 class="section-title">Gravitational Works & Case Studies</h2>
+      <h2 class="section-title">Key Career Initiatives & Measurable Impact</h2>
       <div class="projects-grid">
         ${projectsHtml}
       </div>
@@ -364,7 +410,7 @@ export function renderProfessionalPage(professional, options = {}) {
 
     <!-- Footer -->
     <footer>
-      <p>© ${new Date().getFullYear()} ${name} · Generated on the Anti-Gravity Platform · Hosted on GitHub Pages</p>
+      <p>© ${new Date().getFullYear()} ${name} · Verified Career Profile · Anti-Gravity Platform</p>
     </footer>
   </div>
 

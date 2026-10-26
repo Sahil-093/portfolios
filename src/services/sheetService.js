@@ -5,92 +5,108 @@ import { normalizeSheetRows, normalizeProfessional } from '../utils/schemaNormal
 dotenv.config();
 
 /**
- * Built-in mock dataset so the platform functions immediately
- * even before external Google credentials are configured.
+ * Built-in career profiles showcasing diverse job roles across industries
  */
 export const MOCK_PROFESSIONALS = [
   {
-    name: "Aiden Vance",
-    username: "aiden-vance",
-    title: "Zero-G UI/UX Architect & 3D Designer",
-    bio: "Pioneering spatial interfaces and interactive web experiences. Crafting weightless visual designs that defy ordinary aesthetics.",
+    name: "Abdul Latif",
+    username: "abdul-latif",
+    title: "Senior Fullstack Engineer & Jamstack Architect",
+    department: "Engineering & Technology",
+    jobType: "Full-Time (Remote / Hybrid)",
+    experience: "6+ Years Experience",
+    salary: "$90,000 - $110,000 / yr",
+    currentCompany: "Ex-TechCorp Lead",
+    education: "BS Computer Science",
+    bio: "Specializing in high-performance Jamstack architectures, automated CI/CD pipelines, and responsive web platforms with zero runtime lag.",
     avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
     coverUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
-    skills: ["Three.js", "Web3 Design", "Spatial UI", "Figma", "Design Systems"],
-    hourlyRate: "$95/hr",
-    location: "Global / Remote",
-    status: "Available for Q1 Projects",
+    resumeUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Sample download link
+    skills: ["JavaScript", "Node.js", "WebGL", "React", "Cloud Architecture", "CI/CD"],
+    location: "Islamabad, PK (Open to Global Remote)",
+    status: "Actively Interviewing",
     socials: {
       github: "https://github.com",
-      twitter: "https://twitter.com",
       linkedin: "https://linkedin.com",
-      portfolio: "https://aidenvance.design"
+      twitter: "https://twitter.com",
+      portfolio: "https://github.com/Sahil-093"
     },
     projects: [
       {
-        title: "Nebula OS Spatial Desktop",
-        description: "Browser-based 3D workspace with real-time gravitational simulation and window docking.",
-        tags: ["WebGL", "Three.js", "GLSL Shaders"],
-        link: "https://example.com/project-1",
+        title: "Anti-Gravity Automated Platform",
+        description: "Zero-maintenance automated platform transforming headless spreadsheet databases into static edge portfolios.",
+        tags: ["Node.js", "GitHub Actions", "Jamstack"],
+        link: "https://github.com/Sahil-093/portfolios",
         imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Aura Gravity Protocol",
-        description: "DeFi dashboard with reactive ambient lighting, dynamic orbital charts, and fluid physics.",
-        tags: ["React", "TailwindCSS", "Framer Motion"],
-        link: "https://example.com/project-2",
-        imageUrl: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    name: "Elena Rostova",
-    username: "elena-rostova",
-    title: "Senior Fullstack Engineer & Cloud Architect",
-    bio: "Building hyper-scalable distributed microservices, serverless backends, and low-latency cloud ecosystems.",
-    avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
-    coverUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    skills: ["Node.js", "Go", "Kubernetes", "AWS", "GraphQL", "PostgreSQL"],
-    hourlyRate: "$120/hr",
-    location: "Zurich, Switzerland",
-    status: "Partially Booked",
-    socials: {
-      github: "https://github.com",
-      linkedin: "https://linkedin.com",
-      twitter: "https://twitter.com"
-    },
-    projects: [
-      {
-        title: "QuantumSync Engine",
-        description: "Sub-millisecond data synchronization cluster handling 500k concurrent WebSocket connections.",
-        tags: ["Go", "Redis", "Docker", "gRPC"],
-        link: "https://example.com/quantumsync",
+        title: "Enterprise Distributed Microservices",
+        description: "Built fault-tolerant APIs handling over 400k daily transactions with 99.99% uptime.",
+        tags: ["Docker", "Redis", "Cloud"],
+        link: "#",
         imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
       }
     ]
   },
   {
-    name: "Marcus Chen",
-    username: "marcus-chen",
-    title: "Creative Technologist & Generative AI Specialist",
-    bio: "Merging deep learning models with interactive canvas physics to craft unforgettable consumer experiences.",
-    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
-    coverUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80",
-    skills: ["Python", "PyTorch", "Canvas API", "WebGL", "TypeScript"],
-    hourlyRate: "$110/hr",
-    location: "San Francisco, USA",
-    status: "Available Immediately",
+    name: "Sophia Sterling",
+    username: "sophia-sterling",
+    title: "Staff Product Designer & Design Systems Lead",
+    department: "Design & Creative",
+    jobType: "Full-Time (Remote)",
+    experience: "8+ Years Experience",
+    salary: "$125,000 - $145,000 / yr",
+    currentCompany: "Horizon Spatial Labs",
+    education: "BFA Interactive Media",
+    bio: "Pioneering spatial interfaces, accessible design systems, and product ergonomics for Fortune 500 tech companies.",
+    avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
+    coverUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+    resumeUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    skills: ["Figma", "Design Systems", "Product Strategy", "User Research", "3D Prototyping"],
+    location: "Zurich / Remote",
+    status: "Open to Leadership Roles",
     socials: {
-      github: "https://github.com",
+      linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
-      linkedin: "https://linkedin.com"
+      portfolio: "https://example.com"
     },
     projects: [
       {
-        title: "Synesthesia Visualizer",
-        description: "Real-time AI audio-to-motion graphics generator executing directly on GPU shaders.",
-        tags: ["GLSL", "WebAudio", "TensorFlow.js"],
-        link: "https://example.com/synesthesia",
+        title: "Nova Global Design System",
+        description: "Unified cross-platform design library deployed across 14 enterprise applications, cutting UI development time by 42%.",
+        tags: ["Figma", "Design Tokens", "Accessibility"],
+        link: "#",
+        imageUrl: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80"
+      }
+    ]
+  },
+  {
+    name: "Marcus Vance",
+    username: "marcus-vance",
+    title: "Head of Growth & Performance Marketing",
+    department: "Marketing & Growth",
+    jobType: "Full-Time / Executive",
+    experience: "10+ Years Experience",
+    salary: "$140,000 - $160,000 / yr",
+    currentCompany: "ScaleMatrix Growth",
+    education: "MBA Marketing & Analytics",
+    bio: "Scaled two B2B SaaS startups from $1M to $25M ARR through data-driven performance funnels and global brand campaigns.",
+    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+    coverUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80",
+    resumeUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    skills: ["Growth Marketing", "B2B SaaS", "Attribution Modeling", "SEO", "Product-Led Growth"],
+    location: "London / Remote",
+    status: "Available for Q1 Hire",
+    socials: {
+      linkedin: "https://linkedin.com",
+      twitter: "https://twitter.com"
+    },
+    projects: [
+      {
+        title: "Omnichannel Acquisition Engine",
+        description: "Generated 350k qualified leads in 12 months while decreasing customer acquisition cost (CAC) by 31%.",
+        tags: ["Growth", "Analytics", "Automation"],
+        link: "#",
         imageUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80"
       }
     ]
@@ -118,7 +134,7 @@ async function fetchViaServiceAccount(spreadsheetId, clientEmail, privateKey) {
 }
 
 /**
- * Fetch data via Google Public CSV export (Zero API key required)
+ * Fetch data via Google Public CSV export
  */
 async function fetchViaPublicCsv(spreadsheetId) {
   const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv`;
@@ -128,7 +144,6 @@ async function fetchViaPublicCsv(spreadsheetId) {
   }
   const text = await response.text();
   
-  // Basic CSV parser for Google Sheets CSV export
   const rows = [];
   let currentRow = [];
   let currentCell = '';
@@ -141,7 +156,7 @@ async function fetchViaPublicCsv(spreadsheetId) {
     if (char === '"') {
       if (insideQuotes && nextChar === '"') {
         currentCell += '"';
-        i++; // Skip escaped quote
+        i++;
       } else {
         insideQuotes = !insideQuotes;
       }
@@ -171,10 +186,7 @@ async function fetchViaPublicCsv(spreadsheetId) {
 }
 
 /**
- * Main provider method that auto-selects the best data source:
- * 1. Service Account (if configured in .env)
- * 2. Public Google Sheet (if spreadsheet ID is provided)
- * 3. Seed Mock Dataset (if neither is supplied or on failure)
+ * Main provider method
  */
 export async function getProfessionalsData() {
   const spreadsheetId = process.env.GOOGLE_SPREADSHEET_ID?.trim();
@@ -210,7 +222,7 @@ export async function getProfessionalsData() {
   }
 
   // Mode 3: Built-in Mock Data
-  console.log('⚡ Using built-in Anti-Gravity Professionals seed data.');
+  console.log('⚡ Using built-in Anti-Gravity Career Profiles seed data.');
   const normalizedMock = MOCK_PROFESSIONALS.map(normalizeProfessional);
   return { source: 'mock-dataset', data: normalizedMock };
 }
