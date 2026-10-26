@@ -271,9 +271,14 @@ export function renderDirectoryPage(professionals = [], options = {}) {
         <span class="nav-logo-icon">▲</span>
         <span>Anti-Gravity Portfolios</span>
       </a>
-      <div class="status-badge">
-        <span class="pulse-dot"></span>
-        <span>Auto-Sync Engine Online</span>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div class="status-badge" style="display: none; @media(min-width: 640px){ display: inline-flex; }">
+          <span class="pulse-dot"></span>
+          <span>Auto-Sync Online</span>
+        </div>
+        <a href="./join.html" class="btn-gravity" style="padding: 9px 18px; font-size: 0.88rem;">
+          <span>⚡ Join Platform</span>
+        </a>
       </div>
     </nav>
 

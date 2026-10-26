@@ -297,9 +297,14 @@ export function renderProfessionalPage(professional, options = {}) {
         <span class="nav-logo-icon">▲</span>
         <span>Anti-Gravity Portfolios</span>
       </a>
-      <a href="${basePath}index.html" class="btn-secondary">
-        <span>← All Specialists</span>
-      </a>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="${basePath}index.html" class="btn-secondary">
+          <span>← All Specialists</span>
+        </a>
+        <a href="${basePath}join.html" class="btn-gravity" style="padding: 9px 16px; font-size: 0.88rem;">
+          <span>⚡ Join</span>
+        </a>
+      </div>
     </nav>
 
     <!-- Hero Banner Profile -->

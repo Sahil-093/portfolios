@@ -5,6 +5,7 @@ import { getProfessionalsData } from './services/sheetService.js';
 import { renderDirectoryPage } from './templates/directoryTemplate.js';
 import { renderProfessionalPage } from './templates/professionalTemplate.js';
 import { renderNotFoundPage } from './templates/notFoundTemplate.js';
+import { renderJoinPage } from './templates/joinTemplate.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,13 +63,19 @@ async function buildStaticSite() {
       console.log(`   ↳ [Static Page] /professionals/${prof.username}/index.html (${prof.name})`);
     }
 
-    // Step 5: Render 404 Anomaly Page (dist/404.html)
+    // Step 5: Render Onboarding / Join Page (dist/join.html)
+    console.log('🔨 Compiling Onboarding / Join portal (/join.html)...');
+    const joinHtml = renderJoinPage({ basePath: './' });
+    fs.writeFileSync(path.join(DIST_DIR, 'join.html'), joinHtml, 'utf-8');
+    pagesRendered++;
+
+    // Step 6: Render 404 Anomaly Page (dist/404.html)
     console.log('🔨 Compiling 404 Orbital Anomaly page (/404.html)...');
     const notFoundHtml = renderNotFoundPage({ basePath: './' });
     fs.writeFileSync(path.join(DIST_DIR, '404.html'), notFoundHtml, 'utf-8');
     pagesRendered++;
 
-    // Step 6: Create .nojekyll for GitHub Pages (ensures folders with underscores or dotfiles aren't ignored)
+    // Step 7: Create .nojekyll for GitHub Pages (ensures folders with underscores or dotfiles aren't ignored)
     fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '', 'utf-8');
 
     const duration = Date.now() - startTime;
